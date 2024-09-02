@@ -4,6 +4,7 @@ import re
 import uuid
 import glob
 import shutil
+import urllib.parse
 from aiohttp import web
 from comfy.cli_args import args
 from folder_paths import user_directory
@@ -60,7 +61,7 @@ class UserManager():
 
         if file is not None:
             # prevent leaving /{type}/{user}
-            path = os.path.abspath(os.path.join(user_root, file))
+            path = os.path.abspath(os.path.join(user_root, urllib.parse.unquote(file)))
             if os.path.commonpath((user_root, path)) != user_root:
                 return None
 
